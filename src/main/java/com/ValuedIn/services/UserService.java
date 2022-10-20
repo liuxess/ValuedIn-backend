@@ -1,13 +1,10 @@
 package com.ValuedIn.services;
 
-import com.ValuedIn.factories.UserInfoFactory;
 import com.ValuedIn.models.dto.requests.NewUser;
 import com.ValuedIn.models.dto.requests.UpdatedUser;
 import com.ValuedIn.models.dto.responses.UserInfo;
-import com.ValuedIn.models.entities.UserDetails;
 import com.ValuedIn.models.entities.UserCredentials;
-import com.ValuedIn.repositories.UserDetailsRepository;
-import java.util.Collection;
+import com.ValuedIn.models.mappers.DTOMapper;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -19,67 +16,35 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
-  private final UserDetailsRepository userDetailsRepository;
   private final UserCredentialService userCredentialService;
-
-  private final UserInfoFactory userInfoFactory = new UserInfoFactory();
+  private final UserDetailsService userDetailsService;
+  private final DTOMapper dtoMapper = new DTOMapper();
 
   public Optional<UserInfo> getUserInfo(String login){
     UserCredentials userCredentials = userCredentialService.getCredentialsFromLogin(login);
     if(userCredentials == null)
       return Optional.empty();
 
-    UserDetails userDetails = userDetailsRepository.findByLogin(login);
-
-    return Optional.of(
-        userDetails == null
-        ? userInfoFactory.getInfoFromCredentials(userCredentials)
-        : userInfoFactory.getInfoFromCredentialsAndDetails(userCredentials, userDetails)
-    );
+    return Optional.of(dtoMapper.mapToUserInfo(userCredentials));
   }
 
   public List<UserInfo> getAllUsers(){
-    Collection<UserCredentials> userCredentials = userCredentialService.getAllUserCredentials();
-    Collection<UserDetails> userDetails = userDetailsRepository.findAll();
-    return mapCredentialsAndDetails(userCredentials, userDetails);
+    return userCredentialService.getAllUserCredentials().stream().parallel().map(dtoMapper::mapToUserInfo).toList();
   }
 
-  private List<UserInfo> mapCredentialsAndDetails(Collection<UserCredentials> userCredentials, Collection<UserDetails> userDetails){
-    return userCredentials.stream().parallel().map(credentials -> createInfoFromCredentialsAndUnfilteredDetailList(credentials, userDetails)).toList();
-  }
-
-  private UserInfo createInfoFromCredentialsAndUnfilteredDetailList(UserCredentials credentials, Collection<UserDetails> details){
-    Optional<UserDetails> userDetails = getDetailsFromListAccordingToCredentials(credentials, details);
-
-    return userDetails.isEmpty()
-          ? userInfoFactory.getInfoFromCredentials(credentials)
-          : userInfoFactory.getInfoFromCredentialsAndDetails(credentials, userDetails.get());
-  }
-
-  private Optional<UserDetails> getDetailsFromListAccordingToCredentials(UserCredentials credentials, Collection<UserDetails> details){
-      return details.stream().filter(userDetails -> userDetails.getLogin().equals(credentials.getLogin())).findFirst();
-  }
-
-  public Page<UserInfo> getPaginatedInfo(boolean showExpired, Pageable pageable){
+  public Page<UserInfo> getPaginatedUserInfo(boolean showExpired, Pageable pageable){
      Page<UserCredentials> userCredentials = userCredentialService.getUserCredentialsPaginated(showExpired, pageable);
-     List<UserDetails> userDetails = userDetailsRepository.findAllByLoginIn(userCredentials.map(UserCredentials::getLogin).toList());
-     List<UserInfo> userInfo = mapCredentialsAndDetails(userCredentials.getContent(), userDetails);
-     Page<UserInfo> userInfoPaged = new PageImpl<>(userInfo, userCredentials.getPageable(), userCredentials.getTotalElements());
-     return userInfoPaged;
+     List<UserInfo> userInfo = userCredentials.stream().parallel().map(dtoMapper::mapToUserInfo).toList();
+     return new PageImpl<>(userInfo, userCredentials.getPageable(), userCredentials.getTotalElements());
   }
 
   public void saveNewUser(NewUser newUser){
     userCredentialService.saveNewUser(newUser);
-    userDetailsRepository.save(new UserDetails(newUser.getLogin(), newUser.getRole(), newUser.getFirstName(), newUser.getLastName()));
+    userDetailsService.save(newUser);
   }
 
   public void updateUser(UpdatedUser updatedUser) {
-    UserDetails userDetails = userDetailsRepository.findByLogin(updatedUser.getLogin());
-    userDetails.setFirstName(updatedUser.getFirstName());
-    userDetails.setLastName(updatedUser.getLastName());
-    userDetails.setRole(updatedUser.getRole());
-    userDetailsRepository.save(userDetails);
+    userDetailsService.save(updatedUser);
   }
 
   public void changeExpiration(String login) {

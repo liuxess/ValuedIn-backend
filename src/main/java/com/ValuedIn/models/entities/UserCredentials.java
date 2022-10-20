@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 @Data
@@ -19,6 +22,7 @@ public class UserCredentials {
   @Column(name = "login")
   private String login;
 
+  @Setter
   @Column(name = "password")
   private String password;
 
@@ -28,5 +32,9 @@ public class UserCredentials {
   @Nullable
   @Column(name = "Last_Active")
   private LocalDateTime lastActive;
+
+  @OneToOne
+  @PrimaryKeyJoinColumn
+  private UserDetails userDetails;
 
 }

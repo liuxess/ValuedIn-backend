@@ -3,15 +3,10 @@ package com.ValuedIn.services;
 import com.ValuedIn.models.dto.requests.NewUser;
 import com.ValuedIn.models.entities.UserCredentials;
 import com.ValuedIn.repositories.UsersCredentialsRepository;
-import java.util.Collection;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
-import org.hibernate.loader.custom.RootReturn;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,7 +21,7 @@ public class UserCredentialService {
             newUser.getLogin(),
             authenticationService.encodePassword(newUser.getPassword()),
             false,
-            null
+            null, null
         );
 
     userCredentials.setExpired(false);

@@ -1,7 +1,6 @@
 package com.ValuedIn.repositories;
 
 import com.ValuedIn.models.entities.UserCredentials;
-import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +14,6 @@ public interface UsersCredentialsRepository extends JpaRepository<UserCredential
 
     @Query("SELECT U FROM tbl_user_credentials U WHERE U.isExpired = :showExpired")
     Page<UserCredentials> getUsersPaginatedAndFiltered(@Param("showExpired") Boolean showExpired, Pageable p);
+
 }
+
