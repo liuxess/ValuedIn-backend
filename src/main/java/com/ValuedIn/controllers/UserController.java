@@ -36,7 +36,6 @@ public class UserController {
     return userService.getAllUsers();
   }
 
-
   @PostMapping("/")
   public Page<UserInfo> getAllUsersPaginated(@RequestBody UserPagingConfiguration config) {
     Pageable pageable = PageRequest.of(config.getPage(), config.getSize(), config.getSort());
