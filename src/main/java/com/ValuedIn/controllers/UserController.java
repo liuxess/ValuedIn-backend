@@ -4,7 +4,7 @@ import com.ValuedIn.models.dto.requests.NewUser;
 import com.ValuedIn.models.dto.requests.UpdatedUser;
 import com.ValuedIn.models.dto.requests.UserPagingConfiguration;
 import com.ValuedIn.models.dto.responses.UserInfo;
-import com.ValuedIn.services.UserService;
+import com.ValuedIn.services.data.UserService;
 import java.util.Collection;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

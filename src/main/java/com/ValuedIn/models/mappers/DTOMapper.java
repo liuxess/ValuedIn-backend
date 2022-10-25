@@ -12,7 +12,8 @@ public class DTOMapper {
     UserDetails details = credentials.getUserDetails();
 
     return details == null
-        ? new UserInfo(credentials.getLogin(), null, null, null, credentials.getLastActive(), credentials.isExpired())
-        : new UserInfo(credentials.getLogin(), details.getFirstName(), details.getLastName(), details.getRole(), credentials.getLastActive(), credentials.isExpired());
+        ? new UserInfo(credentials.getLogin(), null, null, null, null, null, credentials.getLastActive(), credentials.isExpired())
+        : new UserInfo(credentials.getLogin(), details.getFirstName(), details.getLastName(), details.getRole(),
+            details.getEmail(), details.getTelephone(), credentials.getLastActive(), credentials.isExpired());
   }
 }
