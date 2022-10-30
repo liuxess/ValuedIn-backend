@@ -1,8 +1,9 @@
-package com.ValuedIn.services;
+package com.ValuedIn.services.data;
 
 import com.ValuedIn.models.dto.requests.NewUser;
 import com.ValuedIn.models.entities.UserCredentials;
 import com.ValuedIn.repositories.UsersCredentialsRepository;
+import com.ValuedIn.services.AuthenticationService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

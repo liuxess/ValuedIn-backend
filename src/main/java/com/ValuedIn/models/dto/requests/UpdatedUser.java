@@ -15,5 +15,6 @@ public class UpdatedUser {
   private String lastName;
   @Enumerated
   private UserRole role;
-
+  private String email;
+  private String telephone;
 }

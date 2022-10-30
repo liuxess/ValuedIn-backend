@@ -8,13 +8,13 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class NewUser {
-
   private String login;
-
   @Enumerated
   private UserRole role;
   private String firstName;
   private String lastName;
   private String password;
+  private String email;
+  private String telephone;
 
 }

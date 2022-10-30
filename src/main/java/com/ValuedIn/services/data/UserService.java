@@ -1,5 +1,6 @@
-package com.ValuedIn.services;
+package com.ValuedIn.services.data;
 
+import com.ValuedIn.events.NewUserEvent;
 import com.ValuedIn.models.dto.requests.NewUser;
 import com.ValuedIn.models.dto.requests.UpdatedUser;
 import com.ValuedIn.models.dto.responses.UserInfo;
@@ -19,6 +20,7 @@ public class UserService {
   private final UserCredentialService userCredentialService;
   private final UserDetailsService userDetailsService;
   private final DTOMapper dtoMapper = new DTOMapper();
+
 
   public Optional<UserInfo> getUserInfo(String login){
     UserCredentials userCredentials = userCredentialService.getCredentialsFromLogin(login);
@@ -41,6 +43,7 @@ public class UserService {
   public void saveNewUser(NewUser newUser){
     userCredentialService.saveNewUser(newUser);
     userDetailsService.save(newUser);
+    new NewUserEvent(newUser);
   }
 
   public void updateUser(UpdatedUser updatedUser) {

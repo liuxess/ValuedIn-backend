@@ -13,6 +13,8 @@ public class UserInfo {
     private String firstName;
     private String lastName;
     private UserRole role;
+    private String email;
+    private String telephone;
     private LocalDateTime lastActive;
     private boolean isExpired;
 

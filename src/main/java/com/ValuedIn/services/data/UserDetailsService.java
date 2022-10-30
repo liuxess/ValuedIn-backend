@@ -1,4 +1,4 @@
-package com.ValuedIn.services;
+package com.ValuedIn.services.data;
 
 import com.ValuedIn.models.dto.requests.NewUser;
 import com.ValuedIn.models.dto.requests.UpdatedUser;
@@ -13,7 +13,7 @@ public class UserDetailsService {
   private final UserDetailsRepository userDetailsRepository;
 
   public void save(NewUser newUser){
-    userDetailsRepository.save(new UserDetails(newUser.getLogin(), newUser.getRole(), newUser.getFirstName(), newUser.getLastName()));
+    userDetailsRepository.save(new UserDetails(newUser.getLogin(), newUser.getRole(), newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), newUser.getTelephone()));
   }
 
   public void save(UpdatedUser updatedUser){
@@ -21,6 +21,8 @@ public class UserDetailsService {
     userDetails.setFirstName(updatedUser.getFirstName());
     userDetails.setLastName(updatedUser.getLastName());
     userDetails.setRole(updatedUser.getRole());
+    userDetails.setEmail(updatedUser.getEmail());
+    userDetails.setTelephone(userDetails.getTelephone());
     save(userDetails);
   }
 
