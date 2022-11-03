@@ -1,8 +1,8 @@
 package com.ValuedIn.models.mappers;
 
 import com.ValuedIn.models.dto.responses.UserInfo;
-import com.ValuedIn.models.entities.UserCredentials;
-import com.ValuedIn.models.entities.UserDetails;
+import com.ValuedIn.models.entities.users.UserCredentials;
+import com.ValuedIn.models.entities.users.UserDetails;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

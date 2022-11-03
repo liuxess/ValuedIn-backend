@@ -1,8 +1,8 @@
 package com.ValuedIn.controllers;
 
-import com.ValuedIn.models.dto.requests.NewUser;
-import com.ValuedIn.models.dto.requests.UpdatedUser;
-import com.ValuedIn.models.dto.requests.UserPagingConfiguration;
+import com.ValuedIn.models.dto.requests.users.NewUser;
+import com.ValuedIn.models.dto.requests.users.UpdatedUser;
+import com.ValuedIn.models.dto.requests.users.UserPagingConfiguration;
 import com.ValuedIn.models.dto.responses.UserInfo;
 import com.ValuedIn.services.data.UserService;
 import java.util.Collection;

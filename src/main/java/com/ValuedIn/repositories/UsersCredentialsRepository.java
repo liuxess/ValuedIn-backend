@@ -1,6 +1,6 @@
 package com.ValuedIn.repositories;
 
-import com.ValuedIn.models.entities.UserCredentials;
+import com.ValuedIn.models.entities.users.UserCredentials;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

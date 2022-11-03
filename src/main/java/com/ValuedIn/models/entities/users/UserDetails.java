@@ -1,4 +1,4 @@
-package com.ValuedIn.models.entities;
+package com.ValuedIn.models.entities.users;
 
 import com.ValuedIn.enumerators.UserRole;
 import javax.persistence.Column;

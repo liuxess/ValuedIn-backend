@@ -1,7 +1,7 @@
-package com.ValuedIn.models.dto.requests;
+package com.ValuedIn.models.dto.requests.users;
 
 
-import com.ValuedIn.models.entities.UserCredentials;
+import com.ValuedIn.models.entities.users.UserCredentials;
 import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import lombok.Data;

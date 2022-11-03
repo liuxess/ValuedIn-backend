@@ -1,4 +1,4 @@
-package com.ValuedIn.models.entities;
+package com.ValuedIn.models.entities.users;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;

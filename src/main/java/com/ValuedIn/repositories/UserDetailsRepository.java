@@ -1,6 +1,6 @@
 package com.ValuedIn.repositories;
 
-import com.ValuedIn.models.entities.UserDetails;
+import com.ValuedIn.models.entities.users.UserDetails;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,8 +1,8 @@
 package com.ValuedIn.services.data;
 
-import com.ValuedIn.models.dto.requests.NewUser;
-import com.ValuedIn.models.dto.requests.UpdatedUser;
-import com.ValuedIn.models.entities.UserDetails;
+import com.ValuedIn.models.dto.requests.users.NewUser;
+import com.ValuedIn.models.dto.requests.users.UpdatedUser;
+import com.ValuedIn.models.entities.users.UserDetails;
 import com.ValuedIn.repositories.UserDetailsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
