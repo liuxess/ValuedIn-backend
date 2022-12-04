@@ -4,6 +4,7 @@ import com.ValuedIn.models.dto.requests.NewUser;
 import com.ValuedIn.models.entities.UserCredentials;
 import com.ValuedIn.repositories.UsersCredentialsRepository;
 import com.ValuedIn.services.AuthenticationService;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,24 +15,23 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserCredentialService {
   private final UsersCredentialsRepository usersCredentialsRepository;
-  private final AuthenticationService authenticationService = new AuthenticationService();
 
   public void saveNewUser(NewUser newUser){
     UserCredentials userCredentials =
         new UserCredentials(
             newUser.getLogin(),
-            authenticationService.encodePassword(newUser.getPassword()),
+            newUser.getPassword(),
             false,
             null, null
         );
 
     userCredentials.setExpired(false);
     userCredentials.setLogin(newUser.getLogin());
-    userCredentials.setPassword(authenticationService.encodePassword(newUser.getPassword()));
+    userCredentials.setPassword(newUser.getPassword());
     usersCredentialsRepository.save(userCredentials);
 
   }
-  protected UserCredentials getCredentialsFromLogin(String login){
+  public UserCredentials getCredentialsFromLogin(String login){
     return usersCredentialsRepository.findUserByLogin(login);
   }
 
@@ -47,5 +47,10 @@ public class UserCredentialService {
     UserCredentials credentials = usersCredentialsRepository.findUserByLogin(login);
     credentials.setExpired(!credentials.isExpired());
     usersCredentialsRepository.save(credentials);
+  }
+
+  public void updateLastActive(UserCredentials userCredentials){
+    userCredentials.setLastActive(LocalDateTime.now());
+    usersCredentialsRepository.save(userCredentials);
   }
 }
