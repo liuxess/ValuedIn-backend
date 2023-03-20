@@ -1,7 +1,7 @@
 package com.ValuedIn.services.data;
 
-import com.ValuedIn.models.dto.requests.NewUser;
-import com.ValuedIn.models.entities.UserCredentials;
+import com.ValuedIn.models.dto.requests.users.NewUser;
+import com.ValuedIn.models.entities.users.UserCredentials;
 import com.ValuedIn.repositories.UsersCredentialsRepository;
 import com.ValuedIn.services.AuthenticationService;
 import java.time.LocalDateTime;

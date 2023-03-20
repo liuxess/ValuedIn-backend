@@ -1,10 +1,10 @@
 package com.ValuedIn.services.data;
 
 import com.ValuedIn.events.NewUserEvent;
-import com.ValuedIn.models.dto.requests.NewUser;
-import com.ValuedIn.models.dto.requests.UpdatedUser;
+import com.ValuedIn.models.dto.requests.users.NewUser;
+import com.ValuedIn.models.dto.requests.users.UpdatedUser;
 import com.ValuedIn.models.dto.responses.UserInfo;
-import com.ValuedIn.models.entities.UserCredentials;
+import com.ValuedIn.models.entities.users.UserCredentials;
 import com.ValuedIn.models.mappers.DTOMapper;
 import java.util.List;
 import java.util.Optional;

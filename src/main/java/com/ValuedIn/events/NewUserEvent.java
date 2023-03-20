@@ -1,11 +1,10 @@
 package com.ValuedIn.events;
 
-import com.ValuedIn.models.dto.requests.NewUser;
+import com.ValuedIn.models.dto.requests.users.NewUser;
 import com.ValuedIn.services.MailService;
 import java.io.IOException;
 
 public class NewUserEvent {
-
     private final MailService mailService = new MailService();
     private final static String from = "noreply@ValuedIn.com";
 
